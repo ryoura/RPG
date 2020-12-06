@@ -18,8 +18,6 @@ public class Zombie : MonoBehaviour
     void Update()
     {
         agent.destination = target.transform.position;
-       
-
     }
 }
 /*public int hitPoint = 100;  //HP
