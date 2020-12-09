@@ -8,7 +8,8 @@ public class Zombie : MonoBehaviour
 {
     public GameObject target;
     NavMeshAgent agent;
-
+    public GameObject shell;
+    public int Attack = 5;
 
     private void Start()
     {
@@ -19,16 +20,11 @@ public class Zombie : MonoBehaviour
     {
         agent.destination = target.transform.position;
     }
-}
-/*public int hitPoint = 100;  //HP
- //HPが0になったときに敵を破壊する
-        if (hitPoint <= 0)
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "shell")
         {
             Destroy(gameObject);
         }
- //ダメージを受け取ってHPを減らす関数
-    public void Damage(int damage)
-{
-    //受け取ったダメージ分HPを減らす
-    hitPoint -= damage;
-}*/
+    }
+}

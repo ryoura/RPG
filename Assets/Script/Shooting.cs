@@ -8,6 +8,7 @@ public class Shooting : MonoBehaviour
     public float shotSpeed;
     public int shotCount = 30;
     private float shotInterval;
+    public GameObject zombie;
 
     void Update()
     {
@@ -25,14 +26,13 @@ public class Shooting : MonoBehaviour
                 bulletRb.AddForce(transform.forward * shotSpeed);
 
                 //射撃されてから3秒後に銃弾のオブジェクトを破壊する.
-                Destroy(bullet, 3.0f);
+                Destroy(bullet, 2.0f);
             }
 
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             shotCount = 30;
-
         }
 
     }

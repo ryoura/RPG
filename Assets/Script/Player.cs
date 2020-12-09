@@ -5,8 +5,7 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-	[SerializeField]
-	CameraController cameraCtrl = null;
+
 	Transform SelfTransform;
 	public float moveSpeed = 3.0f;
 	NavMeshAgent SelfNavmeshAgent;
