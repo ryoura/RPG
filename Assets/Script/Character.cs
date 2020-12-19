@@ -1,18 +1,80 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
+
+public enum CharaType
+{
+    None,
+    Player,
+    Enemy,
+}
 
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    readonly int AnimRequestIDHash = Animator.StringToHash("request_id");
+
+    protected enum AnimationID
     {
-        
+        Idle = 0,
+        Walk = 1,
+
+        Attack = 10,
+
+        Dead = 110,
     }
 
-    // Update is called once per frame
-    void Update()
+    protected NavMeshAgent SelfNavmeshAgent { get; private set; }
+    protected Animator SelfAnimator { get; private set; }
+    public Transform SelfTransform { get; private set; }
+
+    [SerializeField]
+    float moveSpeed = 5.0f;
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    public virtual void Init(CharaType charaType)
     {
+        CharaType = charaType;
+
+        SelfTransform = transform;
         
+        SelfAnimator = GetComponent<Animator>();
+
+        //attackHitColliders = GetComponentsInChildren<AttackHitCollider>();
+        /*foreach (var attackHit in attackHitColliders)
+        {
+            attackHit.Init(this);
+        }*/
     }
+
+    protected void Move(Vector3 axis)
+    {
+        SelfNavmeshAgent = GetComponent<NavMeshAgent>();
+        SelfNavmeshAgent.Move(axis * moveSpeed * Time.deltaTime);
+    }
+
+    protected void PlayAnimation(AnimationID animID)
+    {
+        SelfAnimator.SetInteger(AnimRequestIDHash, (int)animID);
+    }
+
+    protected virtual void OnIdle()
+    {
+    }
+
+    private void Update()
+    {
+        UpdateExecute();
+    }
+
+    protected virtual void UpdateExecute() { }
+
+    /// <summary>
+    /// キャラタイプ
+    /// </summary>
+    public CharaType CharaType { get; private set; }
+
 }

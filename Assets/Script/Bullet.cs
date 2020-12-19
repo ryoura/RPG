@@ -9,5 +9,4 @@ public class Bullet : MonoBehaviour
     {
         transform.position = transform.position + transform.forward;
     }
-
 }

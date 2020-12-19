@@ -1,22 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Player : MonoBehaviour
+
+public class Player : Character
 {
-
-	Transform SelfTransform;
-	public float moveSpeed = 3.0f;
-	NavMeshAgent SelfNavmeshAgent;
 	public Camera SudCamera;
 	public Transform SudCameraTrans;
 
 
-	void Move(Vector3 axis)
-	{
-		SelfNavmeshAgent.Move(axis * moveSpeed * Time.deltaTime);
-	}
 
 	public static Vector3 GetMoveAxis()
 	{
@@ -26,14 +18,15 @@ public class Player : MonoBehaviour
 		return axis;
 	}
 
+
+	// Update is called once per frame
 	void Update()
 	{
-		SelfTransform = transform;
+
 		SudCamera = GetComponentInChildren<Camera>();
 		SudCameraTrans = SudCamera.transform;
-		SelfNavmeshAgent = GetComponent<NavMeshAgent>();
 		Vector3 moveAxis = GetMoveAxis();
-
+		Debug.Log(moveAxis);
 		// カメラの方向から、X-Z平面の単位ベクトルを取得
 		Vector3 cameraForward = Vector3.Scale(SudCameraTrans.forward, new Vector3(1, 0, 1)).normalized;
 
@@ -43,8 +36,8 @@ public class Player : MonoBehaviour
 		// 移動量が入っていたら、移動させる
 		if (moveForward.sqrMagnitude > 0.0f)
 		{
+			
 			Move(moveForward.normalized);
-			SelfTransform.localRotation = Quaternion.LookRotation(moveForward.normalized);
 		}
 	}
 }
