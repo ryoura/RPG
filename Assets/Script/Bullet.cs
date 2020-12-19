@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField]
+    int AttackPower;
+
     // Update is called once per frame
     void Update()
     {

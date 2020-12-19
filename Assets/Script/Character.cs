@@ -41,7 +41,7 @@ public class Character : MonoBehaviour
 
         SelfTransform = transform;
         
-        SelfAnimator = GetComponent<Animator>();
+        
 
         //attackHitColliders = GetComponentsInChildren<AttackHitCollider>();
         /*foreach (var attackHit in attackHitColliders)
@@ -58,11 +58,8 @@ public class Character : MonoBehaviour
 
     protected void PlayAnimation(AnimationID animID)
     {
+        SelfAnimator = GetComponent<Animator>();
         SelfAnimator.SetInteger(AnimRequestIDHash, (int)animID);
-    }
-
-    protected virtual void OnIdle()
-    {
     }
 
     private void Update()

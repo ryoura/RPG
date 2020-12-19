@@ -17,20 +17,14 @@ public class Enemy : Character
     }
 
     ActionState actionState = ActionState.None;
-
-    public GameObject target;
-    private NavMeshAgent agent;
+    Animator animator;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
-        // ターゲットの位置を目的地に設定する。
-        agent.destination = target.transform.position;
-    }
+   
 
     public override void Init(CharaType charaType)
     {
@@ -51,15 +45,6 @@ public class Enemy : Character
         }
     }
 
-    /// <summary>
-    /// 切り替えるアクションが同じの時に呼ばれる
-    /// </summary>
-    /// <param name="actionState"></param>
-    protected virtual void OnSameActionState(ActionState actionState)
-    {
-
-    }
-
     protected void ChangeActionState(ActionState actionState)
     {
         OnFinishActionState(this.actionState);
@@ -74,12 +59,15 @@ public class Enemy : Character
 
     }
 
-    protected virtual void OnStartActionState(ActionState actionState)
+    protected  void OnStartActionState(ActionState actionState)
     {
         switch (actionState)
         {
             case ActionState.Idle:
                 PlayAnimation(AnimationID.Idle);
+                break;
+            case ActionState.Walk:
+                PlayAnimation(AnimationID.Walk);
                 break;
             case ActionState.Dead:
                 PlayAnimation(AnimationID.Dead);
@@ -87,15 +75,6 @@ public class Enemy : Character
         }
     }
 
-    protected override void UpdateExecute()
-    {
-
-    }
-
-    protected override void OnIdle()
-    {
-        ChangeActionState(ActionState.Idle);
-    }
 
     protected ActionState GetActionState()
     {
