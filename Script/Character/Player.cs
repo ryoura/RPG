@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Player : Character
 {
+	[SerializeField]
+	int MaxHp = 100;
+
 	public Camera SudCamera;
 	public Transform SudCameraTrans;
-
-
 
 	public static Vector3 GetMoveAxis()
 	{
@@ -26,7 +26,7 @@ public class Player : Character
 		SudCamera = GetComponentInChildren<Camera>();
 		SudCameraTrans = SudCamera.transform;
 		Vector3 moveAxis = GetMoveAxis();
-		Debug.Log(moveAxis);
+		//Debug.Log(moveAxis);
 		// カメラの方向から、X-Z平面の単位ベクトルを取得
 		Vector3 cameraForward = Vector3.Scale(SudCameraTrans.forward, new Vector3(1, 0, 1)).normalized;
 
@@ -36,7 +36,7 @@ public class Player : Character
 		// 移動量が入っていたら、移動させる
 		if (moveForward.sqrMagnitude > 0.0f)
 		{
-			
+
 			Move(moveForward.normalized);
 		}
 	}
